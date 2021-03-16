@@ -19,7 +19,7 @@ void		get_north_texture_path(t_global *gl, char *buff, int c)
 		buff++;
 		if (*buff == 'O')
 		{
-			buff++;
+			buff = dup_tex(gl->map.n_path, buff);
 			while (*buff == ' ' || *buff == '\t')
 				buff++;
 			(*buff == '.') ? 0 :
@@ -64,7 +64,7 @@ void		get_east_texture_path(t_global *gl, char *buff, int c)
 		buff++;
 		if (*buff == 'A')
 		{
-			buff++;
+			buff = dup_tex(gl->map.e_path, buff);
 			while (*buff == ' ' || *buff == '\t')
 				buff++;
 			(*buff == '.') ? 0 :
@@ -93,7 +93,7 @@ void		get_west_texture_path(t_global *gl, char *buff, int c)
 		buff++;
 		if (*buff == 'E')
 		{
-			buff++;
+			buff = dup_tex(gl->map.w_path, buff);
 			while (*buff == ' ' || *buff == '\t')
 				buff++;
 			(*buff == '.') ? 0 :
@@ -117,6 +117,7 @@ void		get_west_texture_path(t_global *gl, char *buff, int c)
 
 void		get_sprite_texture(t_global *gl, char *buff, int c)
 {
+	buff = dup_tex(gl->map.sprite, buff);
 	while (*buff == ' ' || *buff == '\t')
 		buff++;
 	(*buff == '.') ? 0 : print_error("Error\nPaths must start with ./\n");

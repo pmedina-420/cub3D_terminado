@@ -1,5 +1,5 @@
 
-R 1080 720
+R 1920 1080
 NO ./pics/wood2.xpm
 SO ./pics/leaves.xpm
 C 100, 100, 200
@@ -7,7 +7,6 @@ EA ./pics/metal2.xpm
 WE ./pics/ice.xpm
 
 	
-
 
 
 S ./pics/rose.xpm

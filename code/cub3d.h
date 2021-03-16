@@ -293,5 +293,6 @@ void				rot_left(t_global *gl);
 void				rot_right(t_global *gl);
 void				move_left(t_global *gl);
 void				move_right(t_global *gl);
+char				*dup_tex(char *tex, char *buff);
 
 #endif

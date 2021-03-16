@@ -31,14 +31,10 @@ int			readmap(t_global *gl, char *str)
 		? print_error("Error\nCan't allocate the map\n") : 0;
 	fd = open(str, O_RDONLY);
 	(fd < 0) ? print_error("Error\nInvalid map\n") : 0;
-	printf("valores: %d\n", gl->map.values);
 	map_check(gl, fd);
 	map_err_check(gl, num);
 	while (++f < gl->map.size_y)
-	{
-		printf("-%s-\n", gl->me.fakemap[f]);
 		free(gl->me.fakemap[f]);
-	}
 	free(gl->me.fakemap);
 	return (0);
 }

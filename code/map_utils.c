@@ -17,12 +17,20 @@ char	*get_resolution(t_global *gl, char *buff)
 	buff++;
 	while (*buff == ' ' || *buff == '\t')
 		buff++;
-	gl->cub.size_x = ft_atoi(buff) > 2560 ? 2560 : ft_atoi(buff);
+	gl->cub.size_x = ft_atoi(buff);
+	if (gl->cub.size_x > 2560)
+		gl->cub.size_x = 2560;
+	else if (gl->cub.size_x < 600)
+		gl->cub.size_x = 600;
 	while (*buff >= '0' && *buff <= '9')
 		buff++;
 	while (*buff == ' ' || *buff == '\t')
 		buff++;
-	gl->cub.size_y = ft_atoi(buff) > 1440 ? 1440 : ft_atoi(buff);
+	gl->cub.size_y = ft_atoi(buff);
+	if (gl->cub.size_y > 1440)
+		gl->cub.size_y = 1440;
+	else if (gl->cub.size_y < 300)
+		gl->cub.size_y = 300;
 	while (*buff >= '0' && *buff <= '9')
 		buff++;
 	return (buff);
@@ -30,7 +38,7 @@ char	*get_resolution(t_global *gl, char *buff)
 
 char	*fill_south_path(t_global *gl, char *buff, int c)
 {
-	buff++;
+	buff = dup_tex(gl->map.s_path, buff);
 	while (*buff == ' ' || *buff == '\t')
 		buff++;
 	(*buff == '.') ? 0 :

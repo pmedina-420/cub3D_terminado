@@ -58,7 +58,6 @@ int			key_pressed(int keycode, t_global *gl)
 		free(gl->me.worldmap);
 		mlx_clear_window(gl->cub.mlx_p, gl->cub.win_p);
 		mlx_destroy_window(gl->cub.mlx_p, gl->cub.win_p);
-		system("leaks cub3D");
 		exit(0);
 	}
 	return (0);

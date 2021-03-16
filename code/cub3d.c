@@ -6,7 +6,7 @@
 /*   By: pmedina- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 17:50:55 by pmedina-          #+#    #+#             */
-/*   Updated: 2021/01/07 17:51:09 by pmedina-         ###   ########.fr       */
+/*   Updated: 2021/03/16 20:16:41 by pmedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,12 @@ void			set_pos(t_global *gl)
 	gl->map.countx = 0;
 	gl->floor.rgb = -1;
 	gl->sky.rgb = -1;
+}
+
+char			*dup_tex(char *tex, char *buff)
+{
+	(tex != NULL) ? print_error("Error\nTexture duplicated\n")
+		: 0;
+	buff++;
+	return (buff);
 }
