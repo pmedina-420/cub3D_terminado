@@ -56,6 +56,8 @@ void			print_error(char *str)
 
 void			set_pos(t_global *gl)
 {
+	gl->cub.size_x = -1;
+	gl->cub.size_y = -1;
 	gl->key.w_key = 0;
 	gl->key.a_key = 0;
 	gl->key.s_key = 0;
@@ -77,9 +79,11 @@ void			set_pos(t_global *gl)
 	gl->sky.rgb = -1;
 }
 
-char			*dup_tex(char *tex, char *buff)
+char			*dup_tex(char *tex, int num, char *buff)
 {
 	(tex != NULL) ? print_error("Error\nTexture duplicated\n")
+		: 0;
+	(num != -1) ? print_error("Error\nTexture duplicated\n")
 		: 0;
 	buff++;
 	return (buff);

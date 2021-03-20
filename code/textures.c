@@ -26,8 +26,9 @@ void	loadtextures(t_global *gl)
 	if (!(gl->w_tex.tex = mlx_xpm_file_to_image(gl->cub.mlx_p, gl->map.w_path,
 		&gl->w_tex.wid, &gl->w_tex.hei)))
 		print_error("Error\nInvalid west texture\n");
-	gl->sp.tex = mlx_xpm_file_to_image(gl->cub.mlx_p, gl->map.sprite,
-		&gl->sp.wid, &gl->sp.hei);
+	if (!(gl->sp.tex = mlx_xpm_file_to_image(gl->cub.mlx_p, gl->map.sprite,
+		&gl->sp.wid, &gl->sp.hei)))
+		print_error("Error\nInvalid sprite texture\n");
 	if (!(gl->sp.zbuffer = (double *)malloc(sizeof(double) *
 		gl->cub.size_x + 1)))
 		print_error("Error\nCan't allocate zbuffer\n");
@@ -100,9 +101,8 @@ void	draw_textures(t_global *gl, int sizex)
 	y = -1;
 	while (y++ < gl->me.drawstart)
 		my_mlx_pixel_put(&gl->img, sizex, y, gl->sky.rgb);
-	y = gl->me.drawstart;
-	y--;
-	while (y++ < gl->me.drawend)
+	y = gl->me.drawstart - 1;
+	while (++y < gl->me.drawend)
 	{
 		gl->tex.tex_y = (int)gl->tex.texpos;
 		gl->tex.texpos += gl->tex.step;

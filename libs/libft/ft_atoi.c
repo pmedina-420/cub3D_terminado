@@ -35,3 +35,17 @@ long		ft_atoi(const char *str)
 	}
 	return (nb * sign);
 }
+
+int			ft_atoi_check(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*str == '0')
+		str++;
+	while (str[i] <= '9' && str[i] >= '0')
+		i++;
+	if (i > 6)
+		return (-1);
+	return (0);
+}

@@ -20,7 +20,7 @@ void		my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int			convert_rgb(int r, int g, int b)
+int			convert_rgb(long r, long g, long b)
 {
 	int		rgb;
 
@@ -36,17 +36,20 @@ void		get_floor_rgb(t_global *gl, char *buff)
 {
 	if (*buff == 'F')
 	{
-		buff++;
+		buff = dup_tex(NULL, gl->floor.rgb, buff);
 		while (*buff == ' ' || *buff == '\t')
 			buff++;
 		if (*buff == '-')
 			print_error("Error\nThe minimum RGB value is 0\n");
 		if (ft_isdigit(*buff) == 0)
 			print_error("Error\nInvalid character in F path\n");
+		ft_atoi_check(buff) < 0 ? print_error("Error\nCol") : 0;
 		gl->floor.r = ft_atoi(buff);
 		buff = skip_spaces(buff);
+		ft_atoi_check(buff) < 0 ? print_error("Error\nCol") : 0;
 		gl->floor.g = ft_atoi(buff);
 		buff = skip_spaces(buff);
+		ft_atoi_check(buff) < 0 ? print_error("Error\nCol") : 0;
 		gl->floor.b = ft_atoi(buff);
 		while (*buff >= '0' && *buff <= '9')
 			buff++;
@@ -62,17 +65,20 @@ void		get_sky_rgb(t_global *gl, char *buff)
 {
 	if (*buff == 'C')
 	{
-		buff++;
+		buff = dup_tex(NULL, gl->sky.rgb, buff);
 		while (*buff == ' ' || *buff == '\t')
 			buff++;
 		if (*buff == '-')
 			print_error("Error\nThe minimum RGB value is 0\n");
 		if (ft_isdigit(*buff) == 0)
 			print_error("Error\nInvalid character in C path\n");
+		ft_atoi_check(buff) < 0 ? print_error("Error\nCol") : 0;
 		gl->sky.r = ft_atoi(buff);
 		buff = skip_spaces(buff);
+		ft_atoi_check(buff) < 0 ? print_error("Error\nCol") : 0;
 		gl->sky.g = ft_atoi(buff);
 		buff = skip_spaces(buff);
+		ft_atoi_check(buff) < 0 ? print_error("Error\nCol") : 0;
 		gl->sky.b = ft_atoi(buff);
 		while (*buff >= '0' && *buff <= '9')
 			buff++;
@@ -96,6 +102,8 @@ char		*skip_spaces(char *buff)
 	}
 	if (*buff == ',')
 		buff++;
+	else
+		print_error("Error\nComa missing between RGB values\n");
 	while (*buff == ' ' || *buff == '\t')
 		buff++;
 	if (*buff == '-')

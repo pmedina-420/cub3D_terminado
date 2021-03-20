@@ -5,9 +5,9 @@ OBJS_B	= ${SRCS_B:.c=.o}
 NAME	= libft.a
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 .c.o:
-		${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 ${NAME}:	${OBJS}
 			ar rc  ${NAME} ${OBJS}
 			ranlib ${NAME}

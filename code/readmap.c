@@ -34,7 +34,9 @@ int			readmap(t_global *gl, char *str)
 	map_check(gl, fd);
 	map_err_check(gl, num);
 	while (++f < gl->map.size_y)
+	{
 		free(gl->me.fakemap[f]);
+	}
 	free(gl->me.fakemap);
 	return (0);
 }
@@ -50,10 +52,10 @@ void		path_check(t_global *gl, int fd, char *str)
 	{
 		gl->map.p = buff;
 		c = 0;
+		get_sizes(gl, buff);
 		while (*buff == ' ' || *buff == '\t')
 			buff++;
 		check_path_char(buff);
-		get_sizes(gl, buff);
 		get_north_texture_path(gl, buff, c);
 		get_south_texture_path(gl, buff, c);
 		get_east_texture_path(gl, buff, c);
@@ -69,9 +71,10 @@ void		path_check(t_global *gl, int fd, char *str)
 
 void		get_sizes(t_global *gl, char *buff)
 {
-	if (*buff == '0' && ft_strchr(buff, '1') == 0)
+	if ((*buff == '0' && ft_strchr(buff, '1') == 0) || (*buff == ' ' && ft_strchr(buff, '1') == 0))
 		print_error("Error\nInvalid character in map file\n");
-	if (*buff == '1' || ((*buff == '0' && ft_strchr(buff, '1') != 0)))
+	if (*buff == '1' || ((*buff == '0' && ft_strchr(buff, '1') != 0)) ||
+		((*buff == ' ' && ft_strchr(buff, '1') != 0)))
 	{
 		gl->map.size_y++;
 		gl->map.size_x = ((int)ft_strlen(buff) > gl->map.size_x) ?
@@ -111,7 +114,8 @@ void		map_check(t_global *gl, int fd)
 			fillmap(gl, gl->map.c, s++, buff);
 			get_player_pos(gl, buff);
 		}
-		else if (gl->map.county >= 0 && gl->map.county < gl->map.size_y - 1)
+		// County menor o igual que sizey hace que pueda pasarle saltos de línea después
+		else if (gl->map.county >= 0 && gl->map.county < gl->map.size_y)
 			(*buff == '\0') ? print_error("Error\nEmpty lines in map\n")
 				: check_map_char(buff);
 		free(gl->map.p);
@@ -122,7 +126,7 @@ void		map_check(t_global *gl, int fd)
 
 void		fillmap(t_global *gl, int c, int s, char *buff)
 {
-	(!(gl->me.worldmap[s] = (char *)malloc(sizeof(char) * ft_strlen(buff)
+	(!(gl->me.worldmap[s] = (char *)malloc(sizeof(char) * gl->map.size_x
 		+ 1))) ? print_error("Error\nCan't allocate the map\n") : 0;
 	while (buff[c])
 	{
@@ -131,6 +135,11 @@ void		fillmap(t_global *gl, int c, int s, char *buff)
 			gl->me.worldmap[s][c] = '0';
 		else
 			gl->me.worldmap[s][c] = buff[c];
+		c++;
+	}
+	while (c < gl->map.size_x)
+	{
+		gl->me.worldmap[s][c] = '0';
 		c++;
 	}
 	gl->me.worldmap[s][c] = '\0';

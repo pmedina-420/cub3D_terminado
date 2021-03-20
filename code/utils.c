@@ -71,11 +71,11 @@ void	check_map_char(char *buff)
 
 void	map_err_check(t_global *gl, int num)
 {
-	floodfill(gl, (int)gl->me.posx, (int)gl->me.posy, &num);
 	if (gl->map.player > 1)
 		print_error("Error\nToo many players in the map.");
 	else if (gl->map.player == 0)
 		print_error("Error\nThere's no player in the map.");
+	floodfill(gl, (int)gl->me.posx, (int)gl->me.posy, &num);
 	(gl->map.size_x < 3 || gl->map.size_y < 3) ?
 		print_error("Error\nThe map is too small\n") : 0;
 	(gl->cub.size_x < 1 || gl->cub.size_y < 1) ?

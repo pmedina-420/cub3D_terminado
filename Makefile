@@ -4,7 +4,7 @@ OBJS = ${SRCS:.c=.o}
 NAME	= cub3d.a
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
@@ -20,7 +20,7 @@ clean:
 		$(RM) $(OBJS)
 
 fclean:	clean
-		@$(RM) $(NAME) cub3D *.a cub3d.bmp
+		@$(RM) $(NAME) cub3D *.a cub3d.bmp libs/libft/libft.a
 		@echo "\nSe ha limpiado todo correctamente"
 
 re:	fclean all

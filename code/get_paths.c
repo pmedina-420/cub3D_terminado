@@ -19,11 +19,11 @@ void		get_north_texture_path(t_global *gl, char *buff, int c)
 		buff++;
 		if (*buff == 'O')
 		{
-			buff = dup_tex(gl->map.n_path, buff);
+			buff = dup_tex(gl->map.n_path, -1, buff);
 			while (*buff == ' ' || *buff == '\t')
 				buff++;
-			(*buff == '.') ? 0 :
-				print_error("Error\nPaths must start with ./\n");
+			(*buff == '.' || *buff == '/' || *buff == 'p') ? 0 :
+				print_error("Error\nPaths must start with . or /\n");
 			if (!(gl->map.n_path = malloc(sizeof(char) * ft_strlen(buff) + 1)))
 				print_error("Error\nCan't allocate the north texture\n");
 			while (*buff)
@@ -64,11 +64,11 @@ void		get_east_texture_path(t_global *gl, char *buff, int c)
 		buff++;
 		if (*buff == 'A')
 		{
-			buff = dup_tex(gl->map.e_path, buff);
+			buff = dup_tex(gl->map.e_path, -1, buff);
 			while (*buff == ' ' || *buff == '\t')
 				buff++;
-			(*buff == '.') ? 0 :
-				print_error("Error\nPaths must start with ./\n");
+			(*buff == '.' || *buff == '/' || *buff == 'p') ? 0 :
+				print_error("Error\nPaths must start with . or /\n");
 			if (!(gl->map.e_path = malloc(sizeof(char) * ft_strlen(buff) + 1)))
 				print_error("Error\nCan't allocate the east texture\n");
 			while (*buff)
@@ -93,11 +93,11 @@ void		get_west_texture_path(t_global *gl, char *buff, int c)
 		buff++;
 		if (*buff == 'E')
 		{
-			buff = dup_tex(gl->map.w_path, buff);
+			buff = dup_tex(gl->map.w_path, -1, buff);
 			while (*buff == ' ' || *buff == '\t')
 				buff++;
-			(*buff == '.') ? 0 :
-				print_error("Error\nPaths must start with ./\n");
+			(*buff == '.' || *buff == '/' || *buff == 'p') ? 0 :
+				print_error("Error\nPaths must start with . or /\n");
 			if (!(gl->map.w_path = malloc(sizeof(char) * ft_strlen(buff) + 1)))
 				print_error("Error\nCan't allocate the west texture\n");
 			while (*buff)
@@ -117,10 +117,14 @@ void		get_west_texture_path(t_global *gl, char *buff, int c)
 
 void		get_sprite_texture(t_global *gl, char *buff, int c)
 {
-	buff = dup_tex(gl->map.sprite, buff);
+	(*buff != ' ' && *buff != '\t' && *buff != '.' && *buff != '/')
+		? print_error("Error\nSprite") : 0;
+	buff = dup_tex(gl->map.sprite, -1, buff);
+	buff--;
 	while (*buff == ' ' || *buff == '\t')
 		buff++;
-	(*buff == '.') ? 0 : print_error("Error\nPaths must start with ./\n");
+	(*buff == '.' || *buff == '/' || *buff == 'p') ? 0
+		: print_error("Error\nBad path start\n");
 	if (!(gl->map.sprite = malloc(sizeof(char) * ft_strlen(buff) + 1)))
 		print_error("Error\nCan't allocate the sprite texture\n");
 	while (*buff)

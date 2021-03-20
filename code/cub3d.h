@@ -119,17 +119,17 @@ typedef struct		s_wtex
 
 typedef struct		s_floor
 {
-	int				r;
-	int				g;
-	int				b;
-	int				rgb;
+	long			r;
+	long			g;
+	long			b;
+	long			rgb;
 }					t_floor;
 
 typedef struct		s_sky
 {
-	int				r;
-	int				g;
-	int				b;
+	long			r;
+	long			g;
+	long			b;
 	int				rgb;
 }					t_sky;
 
@@ -285,7 +285,7 @@ void				raycasting_sprites(t_global *gl);
 void				sort_sprites(t_global *gl);
 void				sort_values(t_global *gl, int a, int t);
 void				set_sprite_values(t_global *gl, int s);
-int					convert_rgb(int r, int g, int b);
+int					convert_rgb(long r, long g, long b);
 void				get_side_textures(t_global *gl);
 void				draw_sprites(t_global *gl);
 void				keymove(t_global *gl);
@@ -293,6 +293,6 @@ void				rot_left(t_global *gl);
 void				rot_right(t_global *gl);
 void				move_left(t_global *gl);
 void				move_right(t_global *gl);
-char				*dup_tex(char *tex, char *buff);
+char				*dup_tex(char *tex, int num, char *buff);
 
 #endif
