@@ -297,5 +297,6 @@ void				rot_right(t_global *gl);
 void				move_left(t_global *gl);
 void				move_right(t_global *gl);
 char				*dup_tex(char *tex, int num, char *buff);
+void				addcount(t_global *gl);
 
 #endif

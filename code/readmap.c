@@ -95,7 +95,6 @@ void		get_sizes(t_global *gl, char *buff)
 			buff++;
 		}
 	}
-	
 }
 
 void		map_check(t_global *gl, int fd)
@@ -108,12 +107,11 @@ void		map_check(t_global *gl, int fd)
 	{
 		gl->map.p = buff;
 		check_values(gl, &buff);
-		if ((*buff == '1' || *buff == '0' || *buff == ' ' || !buff) && gl->map.size_x > 0
-			&& gl->map.size_y > 0 && s < gl->map.size_y && gl->map.values == -1)
+		if ((*buff == '1' || *buff == '0' || *buff == ' ' || !buff) &&
+			gl->map.size_x > 0 && gl->map.size_y > 0 && s < gl->map.size_y
+			&& gl->map.values == -1)
 		{
-			gl->map.c = 0;
-			gl->map.countx = 0;
-			gl->map.county++;
+			addcount(gl);
 			check_map_char(buff);
 			fillmap(gl, gl->map.c, s++, buff);
 			get_player_pos(gl, buff);

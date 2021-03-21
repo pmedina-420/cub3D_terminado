@@ -77,3 +77,10 @@ void	fill_west_path(t_global *gl, char *buff, int c)
 	check_after_path(gl, buff, -1, gl->map.w_path);
 	gl->map.values++;
 }
+
+void	addcount(t_global *gl)
+{
+	gl->map.c = 0;
+	gl->map.countx = 0;
+	gl->map.county++;
+}
