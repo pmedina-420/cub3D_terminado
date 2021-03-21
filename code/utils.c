@@ -46,15 +46,16 @@ void	check_after_path(t_global *gl, char *buff, int i, char *s)
 	}
 }
 
-void	check_values(t_global *gl, char *buff)
+void	check_values(t_global *gl, char **buff)
 {
-	if (*buff != '\0' && gl->map.values > 0)
+	if (**buff != '\0' && gl->map.values > 0)
 	{
-		while (*buff == ' ' || *buff == '\t')
-			buff++;
-		if (*buff != '1' && *buff != '0' && *buff != '\0')
+		while (**buff == ' ' || **buff == '\t')
+			(*buff)++;
+		if (**buff != '1' && **buff != '0' && **buff != '\0')
 			gl->map.values--;
 	}
+	gl->map.values = (gl->map.values == 0) ? -1 : gl->map.values;
 }
 
 void	check_map_char(char *buff)
@@ -66,7 +67,10 @@ void	check_map_char(char *buff)
 		if (buff[c] != 'N' && buff[c] != 'S' && buff[c] != 'E' &&
 			buff[c] != 'W' && buff[c] != ' ' && buff[c] != '1' &&
 			buff[c] != '2' && buff[c] != '0')
+		{
+			printf("%c\n", buff[c]);
 			print_error("Error\nInvalid character in map\n");
+		}
 }
 
 void	map_err_check(t_global *gl, int num)

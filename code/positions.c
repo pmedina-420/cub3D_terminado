@@ -106,9 +106,8 @@ void	west_pos(t_global *gl, char *buff)
 
 void	floodfill(t_global *gl, int x, int y, int *num)
 {
-
 	if (x < 0 || y < 0 || y >= gl->map.size_x || x >= gl->map.size_y)
-		printf("Error\nOpen map\n");
+		print_error("Error\nOpen map\n");
 	if ((ft_strchr(" 02NESW", gl->me.fakemap[x][y]) != NULL))
 	{
 		if (gl->me.fakemap[x][y] == '2')

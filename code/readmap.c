@@ -71,8 +71,17 @@ void		path_check(t_global *gl, int fd, char *str)
 
 void		get_sizes(t_global *gl, char *buff)
 {
-	if ((*buff == '0' && ft_strchr(buff, '1') == 0) || (*buff == ' ' && ft_strchr(buff, '1') == 0))
-		print_error("Error\nInvalid character in map file\n");
+	if (ft_strchr(buff, 'R') != 0)
+	{
+		while (*buff == ' ' || *buff == '\t')
+			buff++;
+		buff = get_resolution(gl, buff);
+		check_after_path(gl, buff, gl->map.size_y, "0");
+		gl->map.values++;
+	}
+	if ((*buff == '0' && ft_strchr(buff, '1') == 0) ||
+		(*buff == ' ' && ft_strchr(buff, '1') == 0 && gl->map.values == -1))
+		print_error("Error\nIInvalid character in map file\n");
 	if (*buff == '1' || ((*buff == '0' && ft_strchr(buff, '1') != 0)) ||
 		((*buff == ' ' && ft_strchr(buff, '1') != 0)))
 	{
@@ -86,12 +95,7 @@ void		get_sizes(t_global *gl, char *buff)
 			buff++;
 		}
 	}
-	if (*buff == 'R')
-	{
-		buff = get_resolution(gl, buff);
-		check_after_path(gl, buff, gl->map.size_y, "0");
-		gl->map.values++;
-	}
+	
 }
 
 void		map_check(t_global *gl, int fd)
@@ -103,9 +107,9 @@ void		map_check(t_global *gl, int fd)
 	while ((gl->map.ret = (get_next_line(fd, &buff))) >= 0)
 	{
 		gl->map.p = buff;
-		check_values(gl, buff);
-		if ((*buff == '1' || *buff == '0' || *buff == ' ') && gl->map.size_x > 0
-			&& gl->map.size_y > 0 && s < gl->map.size_y && gl->map.values == 0)
+		check_values(gl, &buff);
+		if ((*buff == '1' || *buff == '0' || *buff == ' ' || !buff) && gl->map.size_x > 0
+			&& gl->map.size_y > 0 && s < gl->map.size_y && gl->map.values == -1)
 		{
 			gl->map.c = 0;
 			gl->map.countx = 0;
@@ -114,8 +118,7 @@ void		map_check(t_global *gl, int fd)
 			fillmap(gl, gl->map.c, s++, buff);
 			get_player_pos(gl, buff);
 		}
-		// County menor o igual que sizey hace que pueda pasarle saltos de línea después
-		else if (gl->map.county >= 0 && gl->map.county < gl->map.size_y)
+		else if (gl->map.county >= 0 && gl->map.county < gl->map.size_y - 1)
 			(*buff == '\0') ? print_error("Error\nEmpty lines in map\n")
 				: check_map_char(buff);
 		free(gl->map.p);
