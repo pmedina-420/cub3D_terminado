@@ -1,31 +1,28 @@
 
+
       NO 			pics/wood.xpm
-C  				200, 100 ,200
+ C  				200, 200 ,200
         EA 						 pics/marita_pequeña.xpm		
         WE pics/ice.xpm
 
 
-       SO /Users/pmedina-/Documents/kub/pics/stone.xpm
+       SO /Users/pmedina-/Documents/cub3D_terminado/pics/stone.xpm
 
-       S /Users/pmedina-/Documents/kub/pics/rose.xpm
-
-
-F 100, 200 , 100
+       S /Users/pmedina-/Documents/cub3D_terminado/pics/rose.xpm
 
        R  1080 720
 
+ F 100, 200 , 100
+
+
+
+ 
     1111111111        
-    1000000001N
+    1000000001
     11111101111111
     1000000001
     1000000011
     10000001
     1111N11
      1111111
-
-
-
-
-
-
 

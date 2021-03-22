@@ -23,6 +23,7 @@ int			readmap(t_global *gl, char *str)
 	f = -1;
 	set_pos(gl);
 	path_check(gl, fd, str);
+	gl->map.lines += 1;
 	(!(gl->arr = (t_arr_sp *)malloc(sizeof(t_arr_sp) * (gl->sp.num))))
 		? print_error("Error\nCan't allocate gl->arr.") : 0;
 	(!(gl->me.worldmap = (char **)malloc(sizeof(char *) * gl->map.size_y + 1)))
@@ -81,8 +82,8 @@ void		get_sizes(t_global *gl, char *buff)
 	if ((*buff == '0' && ft_strchr(buff, '1') == 0) ||
 		(*buff == ' ' && ft_strchr(buff, '1') == 0 && gl->map.values == -1))
 		print_error("Error\nIInvalid character in map file\n");
-	if (*buff == '1' || ((*buff == '0' && ft_strchr(buff, '1') != 0)) ||
-		((*buff == ' ' && ft_strchr(buff, '1') != 0)))
+	if ((*buff == '1' || ((*buff == '0' && ft_strchr(buff, '1') != 0)) ||
+		((*buff == ' ' && ft_strchr(buff, '1') != 0))) && gl->map.values == 8)
 	{
 		gl->map.size_y++;
 		gl->map.size_x = ((int)ft_strlen(buff) > gl->map.size_x) ?
@@ -108,7 +109,7 @@ void		map_check(t_global *gl, int fd)
 		check_values(gl, &buff);
 		if ((*buff == '1' || *buff == '0' || *buff == ' ' || !buff) &&
 			gl->map.size_x > 0 && gl->map.size_y > 0 && s < gl->map.size_y
-			&& gl->map.values == -1)
+			&& gl->map.lines == 1)
 		{
 			addcount(gl);
 			check_map_char(buff);

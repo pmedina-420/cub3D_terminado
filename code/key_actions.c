@@ -74,6 +74,12 @@ void	move_right(t_global *gl)
 
 void	map_start(t_global *gl, char *buff)
 {
-	if ((*buff == '\0' || ft_strchr(buff, '1') == 0) && gl->map.values != -1)
+	if ((*buff == '\0' || ft_strchr(buff, '1') == 0 ||
+		ft_strchr(buff, 'F') != 0 || ft_strchr(buff, 'C') != 0
+		|| ft_strchr(buff, 'R') != 0) && gl->map.values < 8)
+		gl->map.lines++;
+	if (gl->map.values == 8 && (*buff == '\0' ||
+		ft_strchr(buff, '1') == 0 || *buff == ' ') &&
+		gl->map.size_y < 1)
 		gl->map.lines++;
 }
