@@ -77,6 +77,7 @@ void			set_pos(t_global *gl)
 	gl->map.countx = 0;
 	gl->floor.rgb = -1;
 	gl->sky.rgb = -1;
+	gl->map.lines = 0;
 }
 
 char			*dup_tex(char *tex, int num, char *buff)

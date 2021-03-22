@@ -34,9 +34,7 @@ int			readmap(t_global *gl, char *str)
 	map_check(gl, fd);
 	map_err_check(gl, num);
 	while (++f < gl->map.size_y)
-	{
 		free(gl->me.fakemap[f]);
-	}
 	free(gl->me.fakemap);
 	return (0);
 }
@@ -52,6 +50,7 @@ void		path_check(t_global *gl, int fd, char *str)
 	{
 		gl->map.p = buff;
 		c = 0;
+		map_start(gl, buff);
 		get_sizes(gl, buff);
 		while (*buff == ' ' || *buff == '\t')
 			buff++;

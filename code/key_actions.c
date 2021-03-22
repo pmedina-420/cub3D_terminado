@@ -71,3 +71,9 @@ void	move_right(t_global *gl)
 				== '0') ? (gl->me.diry * gl->me.movespeed) : 0;
 	}
 }
+
+void	map_start(t_global *gl, char *buff)
+{
+	if ((*buff == '\0' || ft_strchr(buff, '1') == 0) && gl->map.values != -1)
+		gl->map.lines++;
+}

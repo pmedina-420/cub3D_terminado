@@ -1,36 +1,111 @@
-SRCS = ./code/cub3d.c ./code/raycasting.c ./code/sprites.c ./code/fillpaths.c ./code/readmap.c ./code/map_utils.c ./code/get_paths.c ./code/textures.c ./code/key_actions.c ./code/positions.c ./code/pixel_rgb.c ./code/screenshot.c ./code/event_listeners.c ./code/utils.c ./libs/gnl/get_next_line.c ./libs/gnl/get_next_line_utils.c ./libs/libft/ft_atoi.c ./libs/libft/ft_bzero.c ./libs/libft/ft_calloc.c ./libs/libft/ft_isalnum.c ./libs/libft/ft_isalpha.c ./libs/libft/ft_isascii.c ./libs/libft/ft_isdigit.c ./libs/libft/ft_isprint.c ./libs/libft/ft_itoa.c ./libs/libft/ft_lstadd_back_bonus.c ./libs/libft/ft_lstadd_front_bonus.c ./libs/libft/ft_lstclear_bonus.c ./libs/libft/ft_lstdelone_bonus.c ./libs/libft/ft_lstiter_bonus.c ./libs/libft/ft_lstlast_bonus.c ./libs/libft/ft_lstmap_bonus.c ./libs/libft/ft_lstnew_bonus.c ./libs/libft/ft_lstsize_bonus.c ./libs/libft/ft_memccpy.c ./libs/libft/ft_memchr.c ./libs/libft/ft_memcmp.c ./libs/libft/ft_memcpy.c ./libs/libft/ft_memmove.c ./libs/libft/ft_memset.c ./libs/libft/ft_putchar_fd.c ./libs/libft/ft_putendl_fd.c ./libs/libft/ft_putnbr_fd.c ./libs/libft/ft_putstr_fd.c ./libs/libft/ft_split.c ./libs/libft/ft_strchr.c ./libs/libft/ft_strdup.c ./libs/libft/ft_strjoin.c ./libs/libft/ft_strlcat.c ./libs/libft/ft_strlcpy.c ./libs/libft/ft_strlen.c ./libs/libft/ft_strmapi.c ./libs/libft/ft_strncmp.c ./libs/libft/ft_strnstr.c ./libs/libft/ft_strrchr.c ./libs/libft/ft_strtrim.c ./libs/libft/ft_substr.c ./libs/libft/ft_tolower.c ./libs/libft/ft_toupper.c
+SRC_BASE = ./code/
+LIBFT_BASE = ./libs/libft/
+GNL_BASE = ./libs/gnl/
+
+SRCS 	= cub3d.c 						\
+		  raycasting.c 			 		\
+		  sprites.c 					\
+		  fillpaths.c 					\
+		  readmap.c 					\
+		  map_utils.c 					\
+		  get_paths.c 					\
+		  textures.c 					\
+		  key_actions.c 				\
+		  positions.c 					\
+		  pixel_rgb.c 					\
+		  screenshot.c 					\
+		  event_listeners.c 			\
+		  utils.c 
+
+SRCS_GNL = get_next_line.c 				\
+		   get_next_line_utils.c 
+
+SRCS_LIBFT	= ft_atoi.c 				\
+			ft_bzero.c 					\
+			ft_calloc.c 				\
+		  ft_isalnum.c 					\
+		  ft_isalpha.c 					\
+		  ft_isdigit.c					\
+		  ft_isprint.c					\
+		  ft_isascii.c					\
+		  ft_itoa.c 					\
+		  ft_lstadd_back_bonus.c  		\
+		  ft_lstadd_front_bonus.c 		\
+		  ft_lstclear_bonus.c 			\
+		  ft_lstdelone_bonus.c 			\
+		  ft_lstiter_bonus.c  			\
+		  ft_lstlast_bonus.c 			\
+		  ft_lstmap_bonus.c 			\
+		  ft_lstnew_bonus.c 			\
+		  ft_lstsize_bonus.c 			\
+		  ft_memccpy.c 					\
+		  ft_memchr.c 					\
+		  ft_memcmp.c 					\
+		  ft_memcpy.c 					\
+		  ft_memmove.c 					\
+		  ft_memset.c 					\
+		  ft_putchar_fd.c 				\
+		  ft_putendl_fd.c 				\
+		  ft_putnbr_fd.c 				\
+		  ft_putstr_fd.c 				\
+		  ft_split.c 					\
+		  ft_strchr.c 					\
+		  ft_strdup.c 					\
+		  ft_strjoin.c 					\
+		  ft_strlcat.c 					\
+		  ft_strlcpy.c 					\
+		  ft_strlen.c 					\
+		  ft_strmapi.c 					\
+		  ft_strncmp.c 					\
+		  ft_strnstr.c 					\
+		  ft_strrchr.c 					\
+		  ft_strtrim.c 					\
+		  ft_substr.c 					\
+		  ft_tolower.c 					\
+		  ft_toupper.c 
+
+SRCS 		:= $(addprefix $(SRC_BASE), $(SRCS))
+SRCS_LIBFT 	:= $(addprefix $(LIBFT_BASE), $(SRCS_LIBFT))
+SRCS_GNL 	:= $(addprefix $(GNL_BASE), $(SRCS_GNL))
+
+OBJS_GNL	= ${SRCS_GNL:.c=.o}
+OBJS_LIBFT	= ${SRCS_LIBFT:.c=.o}
 OBJS = ${SRCS:.c=.o}
 
-NAME	= ./cub3D
-CC		= cc
-RM		= rm -rf
-CFLAGS	= -Wall -Werror -Wextra -g
-.c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+LIBFT_PATH	= ./trash/
+LIB_LIBFT	= -L$(LIBFT_PATH) -lft
+LIBFT 		= $(LIBFT_PATH)$(NAME_LIBFT)
+NAME_LIBFT	= libft.a
+NAME		= ./cub3D
+CC			= cc
+RM			= rm -f
+CFLAGS		= -Wall -Werror -Wextra -g
+CUFLAGS 	= -lmlx -framework OpenGL -framework AppKit
 
-$(NAME): ${OBJS}
-		make -sC ./libs/libft/
-		mkdir ./bin
-		cp ./libs/libft/libft.a ./bin
-		ar -rc  $(NAME) $(OBJS)
-		ranlib $(NAME)
-		@gcc -lmlx -framework OpenGL -framework AppKit -o "cub3D" $(NAME)
+$(NAME): $(LIBFT) ${OBJS}
+		$(CC) $(OBJS) -o $(NAME) ${CUFLAGS} $(CFLAGS) $(LIB_LIBFT)
+
+$(LIBFT): $(OBJS_GNL)
+		make -sC $(LIBFT_BASE)
+		$(RM) -r $(LIBFT_PATH)
+		mkdir $(LIBFT_PATH)
+		cp $(LIBFT_BASE)$(NAME_LIBFT) $(LIBFT_PATH)
+		ar rc $(LIBFT_PATH)$(NAME_LIBFT) $(OBJS_GNL)
 
 all:	$(NAME)
 
 clean:
-		$(RM) ./bin $(OBJS)
+		@$(RM) $(OBJS) $(OBJS_LIBFT) $(OBJS_GNL)
 
 fclean:	clean
-		@$(RM) $(NAME) cub3D *.a cub3d.bmp libs/libft/libft.a
+		@$(RM) $(NAME) *.bmp $(LIBFT_BASE)$(NAME_LIBFT)
+		@$(RM) -r $(LIBFT_PATH)
 		@echo "\nSe ha limpiado todo correctamente"
 
 re:	fclean all
+		
+run: 	all
 		@clear
-		@./cub3D ./maps/map.cub
-
-run: 
-	@clear
-	@./cub3D ./maps/map.cub
+		@$(NAME) ./maps/map.cub
 
 .PHONY:	all clean fclean re

@@ -61,6 +61,7 @@ typedef struct		s_map
 	int				ret;
 	int				values;
 	int				c;
+	int				lines;
 }					t_map;
 
 typedef struct		s_tex
@@ -298,5 +299,6 @@ void				move_left(t_global *gl);
 void				move_right(t_global *gl);
 char				*dup_tex(char *tex, int num, char *buff);
 void				addcount(t_global *gl);
+void				map_start(t_global *gl, char *buff);
 
 #endif
