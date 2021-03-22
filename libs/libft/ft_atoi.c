@@ -45,7 +45,7 @@ int			ft_atoi_check(char *str)
 		str++;
 	while (str[i] <= '9' && str[i] >= '0')
 		i++;
-	if (i > 6)
+	if (i > 10)
 		return (-1);
 	return (0);
 }
